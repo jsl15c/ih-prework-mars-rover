@@ -13,80 +13,125 @@ var myRover = {
   direction: 'N'
 };
 
+var latitude = myRover.position[0];
+var longitude = myRover.position[1];
+var gridArray = [
+  [1,2,3,4,5,6,7,8,9,10],
+  [1,2,3,4,5,6,7,8,9,10]
+];
+
+var maxLat = gridArray[0][9];
+var maxLong = gridArray[1][9];
+var minLat = gridArray[0][0];
+var minLong = gridArray[1][0];
+
+// prints position and direction to console and html page
+function printData(rover) {
+  console.log("\nNew Rover Position: [" + latitude + ", " + longitude + "]");
+  console.log("Current direction: " + rover.direction);
+  var output = document.getElementById("output");
+  output.innerHTML = ("New Rover Position: [" + latitude + ", " + longitude + "]" +
+                      "<br>Current direction: " + rover.direction);
+}
+
 //turn function
-function turn(rover) {
+function move(rover) {
   var myCommands = document.getElementById('command').value.toUpperCase();
     for (var i = 0; i < myCommands.length; i++) {
-      switch(myCommands) {
+      switch(myCommands[i]) {
         case 'L':
           if (rover.direction === 'N') {
             rover.direction = 'W';
-            console.log(rover.direction);
+            console.log("Turning: " + rover.direction);
           }
           else if (rover.direction === 'E') {
             rover.direction = 'N';
-            console.log(rover.direction);
+            console.log("Turning: " + rover.direction);
           }
           else if (rover.direction === 'S') {
             rover.direction = 'E';
-            console.log(rover.direction);
+            console.log("Turning: " + rover.direction);
           }
           else if (rover.direction === 'W') {
             rover.direction = 'S';
-            console.log(rover.direction);
-          }
-          else {
-            moveRover(myRover);
+            console.log("Turning: " + rover.direction);
           }
         break;
 
         case 'R':
           if (rover.direction === 'N') {
             rover.direction = 'E';
-            console.log(rover.direction);
+            console.log("Turning: " + rover.direction);
           }
           else if (rover.direction === 'E') {
             rover.direction = 'S';
-            console.log(rover.direction);
+            console.log("Turning: " + rover.direction);
           }
           else if (rover.direction === 'S') {
             rover.direction = 'W';
-            console.log(rover.direction);
+            console.log("Turning: " + rover.direction);
           }
           else if (rover.direction === 'W') {
             rover.direction = 'N';
-            console.log(rover.direction);
+            console.log("Turning: " + rover.direction);
           }
         break;
 
         case 'F':
-          moveRover(myRover);
+          moveForward(myRover);
         break;
 
         case 'B':
-          moveRover(myRover);
+          moveBackward(myRover);
         break;
       }
    }
+   printData(myRover);
 }
 
-function moveRover(rover) {
-  // rover.direction = document.getElementById('command').value.toUpperCase();
+function moveForward(rover) {
   switch(rover.direction) {
     case 'N':
-      rover.position[1]++;
+      if (longitude < maxLong) {
+        longitude++;
+      }
+      else {
+        longitude = minLong;
+      }
       break;
     case 'E':
-      rover.position[0]++;
+      latitude++;
       break;
     case 'S':
-      rover.position[1]--;
+      longitude--;
       break;
     case 'W':
-      rover.position[0]--;
+      latitude--;
       break;
   }
-  console.log("New Rover Position: [" + rover.position[0] + ", " + rover.position[1] + "]");
-  console.log(rover.direction);
-  // console.log(myCommands);
+}
+
+function moveBackward(rover) {
+  switch(rover.direction) {
+    case 'N':
+      longitude--;
+      break;
+    case 'E':
+      latitude--;
+      break;
+    case 'S':
+      longitude++;
+      break;
+    case 'W':
+      latitude++;
+      break;
+  }
+}
+
+function reset(rover) {
+  latitude = 0;
+  longitude = 0;
+  rover.direction = 'N';
+  document.getElementById("command").value = "";
+  printData(myRover);
 }
