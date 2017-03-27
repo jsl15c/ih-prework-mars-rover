@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // The rover will have initial starting point (x,y) coordinates (i.e. 0,0)
 // The rover will have an initial direction (N,E,S,W) to where it is facing
 // The rover is on a 10 x 10 grid
@@ -97,3 +98,30 @@ function moveRover(rover) {
   console.log(rover.direction);
   // console.log(myCommands);
 }
+=======
+var myRover = {
+  position: [0,0], 
+  direction: 'N'
+};
+
+function goForward(rover) {
+  switch(rover.direction) {
+    case 'N':
+      rover.position[0]++
+      break;
+    case 'E':
+      rover.position[1]++
+      break;
+    case 'S':
+      rover.position[0]--
+      break;
+    case 'W':
+      rover.position[1]--
+      break;
+  };
+
+  console.log("New Rover Position: [" + rover.position[0] + ", " + rover.position[1] + "]")
+}
+
+goForward(myRover);
+>>>>>>> 0134ac851d3ef10f100235a1283291386dd0e356
