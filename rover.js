@@ -16,12 +16,12 @@ var myRover = {
 var latitude = myRover.position[0];
 var longitude = myRover.position[1];
 var gridArray = [
-  [1,2,3,4,5,6,7,8,9,10],
-  [1,2,3,4,5,6,7,8,9,10]
+  [0,1,2,3,4,5,6,7,8,9,10],
+  [0,1,2,3,4,5,6,7,8,9,10]
 ];
 
-var maxLat = gridArray[0][9];
-var maxLong = gridArray[1][9];
+var maxLat = gridArray[0][10];
+var maxLong = gridArray[1][10];
 var minLat = gridArray[0][0];
 var minLong = gridArray[1][0];
 
@@ -99,32 +99,70 @@ function moveForward(rover) {
         longitude = minLong;
       }
       break;
+
     case 'E':
-      latitude++;
-      break;
+      if (latitude < maxLat) {
+        latitude++;
+      }
+      else {
+        latitude = minLat;
+      }
+    break;
+
     case 'S':
-      longitude--;
-      break;
+      if (longitude > minLong) {
+        longitude--;
+      }
+      else {
+        longitude = maxLong;
+      }
+    break;
+
     case 'W':
-      latitude--;
-      break;
+      if (latitude > minLat) {
+        latitude--;
+      }
+      else {
+        latitude = maxLat;
+      }
+    break;
   }
 }
 
 function moveBackward(rover) {
   switch(rover.direction) {
     case 'N':
-      longitude--;
-      break;
+      if (longitude > minLong) {
+        longitude--;
+      }
+      else {
+        longitude = maxLong;
+      }
+    break;
     case 'E':
-      latitude--;
-      break;
+      if (latitude > minLat) {
+        latitude--;
+      }
+      else {
+        latitude = maxLat;
+      }
+    break;
     case 'S':
-      longitude++;
-      break;
+      if (longitude < maxLong) {
+        longitude++;
+      }
+      else {
+        longitude = minLong;
+      }
+    break;
     case 'W':
-      latitude++;
-      break;
+      if (latitude < maxLat) {
+        latitude++;
+      }
+      else {
+        latitude = minLat;
+      }
+    break;
   }
 }
 
