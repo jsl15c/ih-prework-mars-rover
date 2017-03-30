@@ -6,16 +6,20 @@
 </head>
 <body>
 	<div class="container">
-		<h4>Mars Rover Command Center</h4>
+		<!-- <h4>Mars Rover Command Center</h4> -->
 		<div class="controls">
 			<input type="text" id="command"/>
-			<button type="submit" onclick="move(myRover)">move</button>
-			<button type="submit" onclick="reset(myRover)">restart</button>
+			<button type="submit" onclick="move(myRover, myRover2)">move</button>
+			<button type="submit" onclick="reset(myRover,myRover2)">restart</button>
 		</div>
 		<div id="output"></div>
 	</div>
 </body>
 </html>
+
+<script>
+	printData(myRover, myRover2);
+</script>
 
 <style>
 html, body {
@@ -38,7 +42,3 @@ html, body {
 	display:inline;
 }
 </style>
-
-<script>
-	printData(myRover);
-</script>
