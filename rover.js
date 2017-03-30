@@ -13,6 +13,17 @@ var myRover = {
   direction: 'N'
 };
 
+var myRover2 = {
+  position: [10,10],
+  direction:'S'
+};
+
+var obstacle = {
+  position: [4,5]
+};
+
+
+
 var latitude = myRover.position[0];
 var longitude = myRover.position[1];
 var gridArray = [
@@ -27,11 +38,13 @@ var minLong = gridArray[1][0];
 
 // prints position and direction to console and html page
 function printData(rover) {
-  console.log("\nNew Rover Position: [" + latitude + ", " + longitude + "]");
+  console.log("\nNew Rover Position: [" + myRover.position[0] + ", " + myRover.position[1] + "]");
   console.log("Current direction: " + rover.direction);
   var output = document.getElementById("output");
-  output.innerHTML = ("New Rover Position: [" + latitude + ", " + longitude + "]" +
-                      "<br>Current direction: " + rover.direction);
+  output.innerHTML = ("New Rover Position: [" + myRover.position[0] + ", " + myRover.position[1] + "]" +
+                      "<br>Current direction: " + myRover.direction);
+console.log(myRover.position);
+console.log(obstacle.position);
 }
 
 //turn function
@@ -86,44 +99,46 @@ function move(rover) {
         break;
       }
    }
+   obstacleCheck();
    printData(myRover);
 }
 
 function moveForward(rover) {
   switch(rover.direction) {
     case 'N':
-      if (longitude < maxLong) {
-        longitude++;
+      if (myRover.position[1] < maxLong) {
+        // longitude++;
+        myRover.position[1]++;
       }
       else {
-        longitude = minLong;
+        myRover.position[1] = minLong;
       }
       break;
 
     case 'E':
-      if (latitude < maxLat) {
-        latitude++;
+      if (myRover.position[0] < maxLat) {
+        myRover.position[0]++;
       }
       else {
-        latitude = minLat;
+        myRover.position[0] = minLat;
       }
     break;
 
     case 'S':
-      if (longitude > minLong) {
-        longitude--;
+      if (myRover.position[1] > minLong) {
+        myRover.position[1]--;
       }
       else {
-        longitude = maxLong;
+        myRover.position[1] = maxLong;
       }
     break;
 
     case 'W':
-      if (latitude > minLat) {
-        latitude--;
+      if (myRover.position[0] > minLat) {
+        myRover.position[0]--;
       }
       else {
-        latitude = maxLat;
+        myRover.position[0] = maxLat;
       }
     break;
   }
@@ -132,44 +147,53 @@ function moveForward(rover) {
 function moveBackward(rover) {
   switch(rover.direction) {
     case 'N':
-      if (longitude > minLong) {
-        longitude--;
+      if (myRover.position[1] > minLong) {
+        myRover.position[1]--;
       }
       else {
-        longitude = maxLong;
+        myRover.position[1] = maxLong;
       }
     break;
     case 'E':
-      if (latitude > minLat) {
-        latitude--;
+      if (myRover.position[0] > minLat) {
+        myRover.position[0]--;
       }
       else {
-        latitude = maxLat;
+        myRover.position[0] = maxLat;
       }
     break;
     case 'S':
-      if (longitude < maxLong) {
-        longitude++;
+      if (myRover.position[1] < maxLong) {
+        myRover.position[1]++;
       }
       else {
-        longitude = minLong;
+        myRover.position[1] = minLong;
       }
     break;
     case 'W':
-      if (latitude < maxLat) {
-        latitude++;
+      if (myRover.position[0] < maxLat) {
+        myRover.position[0]++;
       }
       else {
-        latitude = minLat;
+        myRover.position[0] = minLat;
       }
     break;
   }
 }
 
 function reset(rover) {
-  latitude = 0;
-  longitude = 0;
+  myRover.position[0] = 0;
+  myRover.position[1] = 0;
   rover.direction = 'N';
   document.getElementById("command").value = "";
   printData(myRover);
+}
+
+function obstacleCheck() {
+  var rov = myRover.position.toString();
+  var obs = obstacle.position.toString();
+  if (rov === obs) {
+    alert("Obstacle detected. \n Resetting rover...");
+    reset(myRover);
+  }
 }
